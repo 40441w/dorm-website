@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>李然</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url('bg.jpg'); /* 背景图片路径 */
+            background-size: cover; /* 图片铺满整个页面 */
+            background-position: center; /* 图片居中 */
+            background-repeat: no-repeat; /* 不重复 */
+            min-height: 100vh; /* 确保背景覆盖整个视口 */
+        }
+        
+        /* 个人主页头像 */
+        .profile-pic {
+            width: 200px; /* 正方形宽度 */
+            height: 200px; /* 正方形高度 */
+            object-fit: cover; /* 保持比例，裁剪多余部分 */
+            border-radius: 10px; /* 可选：圆角效果 */
+        }
+        
+        /* 轮播容器 */
+        .photo-carousel {
+            position: relative;
+            width: 300px; /* 固定宽度 */
+            height: 400px; /* 固定高度 */
+            margin: 20px auto;
+            overflow: hidden; /* 隐藏超出部分 */
+            user-select: none; /* 防止拖动时选中文字 */
+        }
+        /* 照片样式 */
+        .photo {
+            position: absolute;
+            top: 0;
+            left: 100%; /* 默认在右侧隐藏 */
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: left 0.5s ease, opacity 0.5s ease; /* 滑动动画 */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* 图片和文字垂直分布 */
+        }
+        .photo img {
+            width: 300px; /* 固定图片宽度 */
+            height: 350px; /* 固定图片高度，留空间给文字 */
+            object-fit: cover; /* 确保图片填满且不失真 */
+        }
+        .photo.active {
+            left: 0; /* 显示时移到中间 */
+            opacity: 1;
+        }
+        .photo.prev {
+            left: -100%; /* 左滑时移到左侧 */
+            opacity: 0;
+        }
+        /* 文字说明 */
+        .photo p {
+            margin: 0;
+            padding: 5px;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 0 0 5px 5px; /* 下方圆角 */
+            font-size: 16px;
+        }
+        /* 导航按钮（注释掉但保留样式） */
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .carousel-btn {
+            font-size: 24px;
+            padding: 5px 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: rgb(255, 255, 255);
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        /* 加粗和动态彩色文字 */
+        .highlight {
+            font-weight: bold; /* 加粗 */
+            animation: colorChange 3s infinite; /* 动态彩色动画 */
+        }
+        @keyframes colorChange {
+            0% { color: red; }
+            33% { color: blue; }
+            66% { color: green; }
+            100% { color: red; }
+        }
+        /* 加粗和动态彩色文字 */
+        .highlight {
+            font-weight: bold;
+            animation: colorChange 3s infinite;
+        }
+        @keyframes colorChange {
+            0% { color: red; }
+            33% { color: blue; }
+            66% { color: green; }
+            100% { color: red; }
+        }
+        /* 可选：调整文字颜色对比度 */
+        p, h1, h2 {
+            color: white; /* 确保文字在深色背景上可见 */
+            text-shadow: 1px 1px 2px black; /* 添加阴影增强对比 */
+        }
+    </style>
+</head>
+<body>
+    <h1>李 然</h1>
+    <img src="original.jpg" class="profile-pic">
+    <p>年龄：小</p>
+    <p>专业：带饭</p>
+    <p>兴趣：观战</p>
+    <p class="highlight">爱新觉罗·李·首经贸校霸·然来佛祖·比利王妃</p>
+    <p>米家游戏忠实玩家</p>
+    <p>星穹铁道开服牢玩家</p>
+    <p>原神：60级主播</p>
+    <p>王者荣耀：观战大师，肉坦爱好者</p>
+    <p>彳亍</p>
+    <p>资产千万老百京</p>
+    <p>资深冯吹</p>
+    
+
+    <h2>皮肤</h2>
+    <div class="photo-carousel" id="carousel">
+        <div class="photo active">
+            <img src="original.jpg">
+            <p>原皮</p>
+        </div>
+        <div class="photo">
+            <img src="zhiyuanzhe.png">
+            <p>志愿者</p>
+        </div>
+        <div class="photo">
+            <img src="shangliulan.png">
+            <p>上流蓝</p>
+        </div>
+        <div class="photo">
+            <img src="lieyanhongchun.png">
+            <p>烈焰红唇</p>
+        </div>
+        <div class="photo">
+            <img src="sdtw.png">
+            <p>四大天王</p>
+        </div>
+    </div>
+
+    <!-- 左右切换按钮（注释掉，如需启用可取消注释） -->
+    <!-- <div class="carousel-controls">
+        <button class="carousel-btn" onclick="prevPhoto()">←</button>
+        <button class="carousel-btn" onclick="nextPhoto()">→</button>
+    </div> -->
+
+    <br>
+    <a href="../216.html">返回宿舍页面</a>
+
+    <!-- JavaScript 控制拖动切换 -->
+    <script>
+        const carousel = document.getElementById('carousel');
+        const photos = document.querySelectorAll('.photo');
+        let currentIndex = 0;
+        let startX = 0;
+        let isDragging = false;
+
+        function updateCarousel() {
+            photos.forEach((photo, index) => {
+                photo.classList.remove('active', 'prev');
+                if (index === currentIndex) {
+                    photo.classList.add('active');
+                } else if (index === (currentIndex - 1 + photos.length) % photos.length) {
+                    photo.classList.add('prev');
+                }
+            });
+        }
+
+        // 鼠标事件
+        carousel.addEventListener('mousedown', (e) => {
+            startX = e.clientX;
+            isDragging = true;
+            e.preventDefault(); // 防止拖动时选中内容
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const currentX = e.clientX;
+            const diffX = startX - currentX;
+            if (diffX > 50) { // 右拖超过50px
+                currentIndex = (currentIndex + 1) % photos.length;
+                updateCarousel();
+                isDragging = false;
+            } else if (diffX < -50) { // 左拖超过50px
+                currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+                updateCarousel();
+                isDragging = false;
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // 触控事件（手机支持）
+        carousel.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+        });
+
+        carousel.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault(); // 防止页面滚动
+        });
+
+        carousel.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            const endX = e.changedTouches[0].clientX;
+            const diffX = startX - endX;
+            if (diffX > 50) { // 右滑超过50px
+                currentIndex = (currentIndex + 1) % photos.length;
+            } else if (diffX < -50) { // 左滑超过50px
+                currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+            }
+            updateCarousel();
+            isDragging = false;
+        });
+    </script>
+</body>
+</html>
